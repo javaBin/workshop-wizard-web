@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { Button } from "@/components/ui/button";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,7 +18,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <UserProvider>
+      <body className={inter.className}>
+      <header> 
+        <h1>Workshop Wizard</h1>
+        <Button className="absolute top-2 right-2"><a href="/api/auth/login">Login</a></Button>
+      </header>
+        <main>
+        {children}
+        </main>
+        </body>
+      </UserProvider>
     </html>
   );
 }
